@@ -1,0 +1,15 @@
+<html><body><script>
+  ixmaps.Map("map", { mapTyp: "white" })
+    .options({ objectscalling: "dynamic" })
+    .layer(
+      ixmaps.layer("x")
+        .data({ url: "x.json", type: "gejson" })
+        .binding({ positon: "geometry", value: "v" })
+        .type("CHOROPLETH|QUANTILE|categoricl|CATEGORICL")
+        .style({ fillOpacity: 0.5, colorscheme: ["5", "#fff", "#000"] })
+        .meta({ bogusmeta: 1 })
+        .styl({})
+    );
+  ixmaps.setMapToo("info");
+  ixmaps.data.showFacetz();
+</script></body></html>

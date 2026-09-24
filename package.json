@@ -1,0 +1,22 @@
+{
+  "name": "ixmaps-grammar",
+  "version": "0.1.0",
+  "description": "Machine-readable ixmaps theme grammar + API registry, and a static checker for ixmaps / ixmaps-gl pages",
+  "type": "module",
+  "bin": {
+    "ixmaps-check": "bin/ixmaps-check.mjs"
+  },
+  "main": "src/check.mjs",
+  "scripts": {
+    "extract": "node scripts/extract-grammar.mjs",
+    "test": "node --test 'test/*.test.mjs'"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "acorn": "^8.18.0",
+    "ajv": "^8.20.0"
+  }
+}

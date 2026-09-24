@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><body><div id="map"></div>
+<script src="https://cdn.jsdelivr.net/gh/gjrichter/ixmaps-flat@master/ixmaps.js"></script>
+<script>
+  const myMap = ixmaps.Map("map", { mapType: "white", mode: "info", legend: 1 })
+    .options({ objectscaling: "dynamic", normalSizeScale: "1000000", basemapopacity: 0.6 })
+    .view([42.5, 12.5], 6);
+
+  myMap.layer("plants")
+    .data({ url: "plants.csv", type: "csv" })
+    .binding({ geo: "lat|lon", value: "capacity", title: "name" })
+    .type("CHART|BUBBLE|SIZE|CATEGORICAL|VALUES")
+    .style({ colorscheme: ["#f00", "#0f0"], fillopacity: 0.7, scale: 1.2 })
+    .meta({ title: "Power plants", tooltip: "{{name}}" })
+    .define();
+
+  myMap.then(map => {
+    map.changeThemeStyle("plants", "opacity:0.5", "set");
+    ixmaps.setMapTool("info");
+  });
+</script></body></html>

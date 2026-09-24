@@ -1,0 +1,6 @@
+{
+  "metadata": {}, "map": {},
+  "themes": [
+    { "layer": "l", "field": "v", "style": { "type": "CHOROPLETH|QUANTLE", "colorscheme": ["5"], "fillopacty": 0.5 } }
+  ]
+}

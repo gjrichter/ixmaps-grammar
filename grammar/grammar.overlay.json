@@ -1,0 +1,91 @@
+{
+  "$comment": "Hand-curated additions merged over grammar.generated.json by scripts/extract-grammar.mjs. Per entry: `add` (evidence string) creates an entry the source scan cannot see; any other field is merged into the generated entry. Only record what a source or doc actually says — cite it.",
+  "optionsKeys": {
+    "normalSizeScale": {
+      "add": "create-ixmap API_REFERENCE.md:116 (schema v1.2 has it under map.scaleParam; flat reads .options() keys indirectly)",
+      "note": "REQUIRED with objectscaling"
+    },
+    "dynamicScalePow": {
+      "add": "create-ixmap API_REFERENCE.md:135"
+    }
+  },
+  "glExtensions": {
+    "$comment": "Keys ixmaps-gl reads that ixmaps-flat does not know. Valid with --engine gl; flagged as gl-only with --engine flat (flat ignores them silently).",
+    "styleKeys": {
+      "legendtheme": "ixmaps-gl-only legend color theme (ixmaps-gl.js .style({legendtheme:'light'}))",
+      "legendfilter": "ixmaps-gl-only legend filter"
+    },
+    "flags": {
+      "SPLINE": "ixmaps-gl PLOT curve smoothing"
+    },
+    "optionsKeys": {
+      "splash": "ixmaps-gl: false disables the loading splash",
+      "splashText": "ixmaps-gl: loading splash text"
+    },
+    "dataKeys": {
+      "urls": "ixmaps-gl: several CSV urls concatenated",
+      "remap": "ixmaps-gl: per-field value remapping at load"
+    },
+    "mapInstanceMethods": {
+      "clearAllFacetFilters": "ixmaps-gl facet API",
+      "clearFacetFilter": "ixmaps-gl facet API",
+      "getActiveFacetFilters": "ixmaps-gl facet API",
+      "getFacets": "ixmaps-gl facet API",
+      "setFacetFilter": "ixmaps-gl facet API",
+      "getCategoryColor": "ixmaps-gl",
+      "defineLayer": "ixmaps-gl runtime layer add",
+      "onRedraw": "ixmaps-gl redraw hook",
+      "refresh": "ixmaps-gl",
+      "setSizeField": "ixmaps-gl",
+      "setThemeStyle": "ixmaps-gl",
+      "setThemeVisible": "ixmaps-gl"
+    },
+    "runtimeApi": {
+      "data.fShowFacetValues": "ixmaps-gl facet display switch"
+    }
+  },
+  "glInternal": {
+    "$comment": "gl-only reads that are NOT grammar: extractor noise (MapLibre style objects / DOM nodes named `style`) or engine internals. Excluded from checks.",
+    "styleKeys": [
+      "json",
+      "layers",
+      "textContent"
+    ],
+    "mapBuilderMethods": [
+      "build"
+    ],
+    "mapInstanceMethods": [
+      "map",
+      "overlay",
+      "runtimes"
+    ]
+  },
+  "flags": {
+    "SIZE": {
+      "gl": {
+        "status": "implicit",
+        "note": "ixmaps-gl always sizes CHART|BUBBLE by value (valueRadius) and never tests the SIZE flag (ixmaps-gl.js:3208) — behavior WITHOUT SIZE may differ from flat; unverified"
+      }
+    },
+    "COUNT": {
+      "gl": {
+        "status": "implicit",
+        "note": "ixmaps-gl aggregates as a per-record COUNT whenever binding.size is unset (ixmaps-gl.js:3802) and never tests the COUNT flag itself"
+      }
+    }
+  },
+  "dataTypes": {
+    "json": {
+      "gl": {
+        "status": "implicit",
+        "note": "ixmaps-gl accepts this only as inline .data({obj}) — any obj whose type is not topojson/geojson is read as a row table (ixmaps-gl.js:403); URL loads support only csv/topojson/geojson"
+      }
+    },
+    "jsondb": {
+      "gl": {
+        "status": "implicit",
+        "note": "ixmaps-gl accepts this only as inline .data({obj}) — any obj whose type is not topojson/geojson is read as a row table (ixmaps-gl.js:403); URL loads support only csv/topojson/geojson"
+      }
+    }
+  }
+}
