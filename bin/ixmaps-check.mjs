@@ -44,4 +44,5 @@ if (asJson) {
   console.log(`\n${files.length} file(s), engine=${engine}: ${count('error')} error(s), ${count('warning')} warning(s), ${count('info')} info`);
 }
 const bad = results.some(r => r.findings.some(f => f.severity === 'error' || (strict && f.severity === 'warning')));
-process.exit(bad ? 1 : 0);
+// exitCode, not process.exit(): exit() drops stdout still buffered in a pipe
+process.exitCode = bad ? 1 : 0;

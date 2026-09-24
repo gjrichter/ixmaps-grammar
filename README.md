@@ -16,7 +16,9 @@ sync: one vocabulary, per-engine support status, coverage as a number.
 | `grammar/grammar.overlay.json` | hand-curated additions (notes, gl extensions, overrides) — **edit this** |
 | `grammar/grammar.json` | generated + overlay, what the checker reads — do not edit |
 | `grammar/schema/v1.2.json` | vendored ixmaps project JSON schema |
-| `src/check.mjs` | checker library (`checkFile`, `checkHtml`, `checkJs`, `checkProject`) |
+| `src/core.mjs` | the keyword rules (`Validator`) — shared by the checker and the browser runtime |
+| `src/check.mjs` | static checker: AST traversal (`checkFile`, `checkHtml`, `checkJs`, `checkProject`) |
+| `scripts/build-runtime.mjs` | builds `dist/validate.mjs` + `dist/grammar.runtime.json` (browser runtime) |
 | `bin/ixmaps-check.mjs` | CLI |
 
 ## Checking pages
@@ -51,6 +53,28 @@ are validated against schema v1.2 and their themes checked the same way.
 Not checked (v1): style **values** (colorscheme shapes, numeric ranges),
 flag combinations (which flags apply to which base type), inline `onclick`
 handlers, and `ixmaps.a.b.c()` paths deeper than one namespace.
+
+## Browser runtime (used by ixmaps-gl)
+
+```bash
+npm run build     # after npm run extract
+```
+
+writes `dist/validate.mjs` — one self-contained ES module (`src/core.mjs` plus the grammar
+without evidence, ~83 KB, ~13 KB gzipped) — and `dist/grammar.runtime.json`. ixmaps-gl
+`import()`s the module only when validation is turned on (`.options({validate:true})`,
+see the ixmaps-gl README):
+
+```js
+const { createValidator } = await import('.../dist/validate.mjs');
+const v = createValidator({ engine: 'gl', onFinding: (finding, ctx) => console.warn(finding.message) });
+v.theme({ type, style, meta, binding, data }, { layer: 'name' });
+v.options({...}); v.mapOptions({...}); v.style({...}); v.runtimeCall('setMapTool');
+```
+
+The keyword rules live once, in `src/core.mjs`: the static checker (`src/check.mjs`) only
+walks the AST and hands values to the same `Validator`. `npm test` checks that `dist/` is
+built from the current grammar and gives the same findings as the full grammar.
 
 ## Regenerating the grammar
 

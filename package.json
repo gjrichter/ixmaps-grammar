@@ -9,6 +9,7 @@
   "main": "src/check.mjs",
   "scripts": {
     "extract": "node scripts/extract-grammar.mjs",
+    "build": "node scripts/build-runtime.mjs",
     "test": "node --test 'test/*.test.mjs'"
   },
   "engines": {

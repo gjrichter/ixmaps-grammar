@@ -112,3 +112,11 @@ test('"<script>" inside an HTML comment does not open a script block', async () 
   assert.ok(!r.findings.some(f => f.code === 'parse-error'));
   assert.equal(r.findings.find(f => f.keyword === 'setMapToo').line, 4);
 });
+
+test('map handles stored on an object (window._map = ixmaps.Map(...)) are tracked', () => {
+  const r = checkJs(`
+    window._map = ixmaps.Map("m", {});
+    window._map.layer("a").type("CHART|BUBBL").style({ fillOpacity: 1 });
+    _map.then(map => map.changeThemeStyl("a", "x"));`);
+  assert.deepEqual(errors(r).map(f => f.keyword).sort(), ['BUBBL', 'changeThemeStyl', 'fillOpacity']);
+});

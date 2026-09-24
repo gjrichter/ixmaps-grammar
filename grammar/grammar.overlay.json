@@ -20,7 +20,8 @@
     },
     "optionsKeys": {
       "splash": "ixmaps-gl: false disables the loading splash",
-      "splashText": "ixmaps-gl: loading splash text"
+      "splashText": "ixmaps-gl: loading splash text",
+      "validate": "ixmaps-gl: opt-in grammar validation (true, or a validator module URL)"
     },
     "dataKeys": {
       "urls": "ixmaps-gl: several CSV urls concatenated",
@@ -38,7 +39,8 @@
       "refresh": "ixmaps-gl",
       "setSizeField": "ixmaps-gl",
       "setThemeStyle": "ixmaps-gl",
-      "setThemeVisible": "ixmaps-gl"
+      "setThemeVisible": "ixmaps-gl",
+      "getValidationReport": "ixmaps-gl: findings of the opt-in grammar validation (null when off)"
     },
     "runtimeApi": {
       "data.fShowFacetValues": "ixmaps-gl facet display switch"
