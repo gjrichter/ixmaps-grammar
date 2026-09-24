@@ -110,7 +110,11 @@ each evidence line actually contains its keyword.
 
 `impl` (gl reads it), `inert` (in `KNOWN_INERT_FLAGS`), `implicit` (gl
 behaves that way without testing the keyword — overlay note says how),
-`missing`. The status is derived from what gl's source *reads*, not from
+`missing`. gl's source is scanned as code only (comments and quoted strings are
+skipped, so a keyword that merely appears in a comment doesn't count), and a binding
+alias counts as implemented when gl's `GL_BINDING_TARGETS` table implements its target
+(gl resolves aliases through its generated `FLAT_BINDING_ALIASES` table — keep it in sync
+with `ixmaps-gl/test/sync-grammar.mjs --write`). The status is derived from what gl's source *reads*, not from
 rendering equivalence: `impl` means "handled", not "pixel-identical to flat".
 `glOnly` in the generated file lists gl reads flat doesn't know — review
 them into `glExtensions` (real extensions) or `glInternal` (noise) in the

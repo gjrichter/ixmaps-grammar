@@ -346,7 +346,10 @@ function extractGl(reg) {
   const lines = src.split('\n');
   const gl = {
     flags: {}, inertFlags: {}, styleKeys: {}, bindingKeys: {}, metaKeys: {}, mapOptions: {},
-    optionsKeys: {}, runtimeApi: {}, dataKeys: {}, dataTypes: {}, mapInstanceMethods: {}, layerMethods: {}, mapBuilderMethods: {},
+    optionsKeys: {}, runtimeApi: {}, dataKeys: {}, dataTypes: {},
+    // flat binding target → evidence, from gl's GL_BINDING_TARGETS table;
+    // alias → its line in gl's generated FLAT_BINDING_ALIASES table
+    bindingTargets: {}, aliasLines: {}, mapInstanceMethods: {}, layerMethods: {}, mapBuilderMethods: {},
   };
   // `mapOptions` means two things in gl: inside class MapBuilder it is the
   // Map(div, opts) constructor object; everywhere else (LayerRuntime,
@@ -355,10 +358,20 @@ function extractGl(reg) {
   const ast = acorn.parse(src, { ecmaVersion: 'latest', locations: true });
   let mb = [0, -1];
   walk(ast, n => { if (n.type === 'ClassDeclaration' && n.id?.name === 'MapBuilder') mb = [n.loc.start.line, n.loc.end.line]; });
-  lines.forEach((line, i) => {
+  // Scan CODE only: drop // comments and '...' / "..." strings first, so a
+  // keyword that merely appears in a comment or in a string (e.g. the
+  // generated alias table's "style.colorfield" values) isn't taken for a
+  // read. Template strings are kept — real reads sit inside their ${...}.
+  const codeOnly = line => line
+    .replace(/'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"/g, '""')
+    .replace(/\/\/.*$/, '');
+  lines.forEach((rawLine, i) => {
+    const line = codeOnly(rawLine);
     const where = `ixmaps-gl.js:${i + 1}`;
     const inMapBuilder = i + 1 >= mb[0] && i + 1 <= mb[1];
-    for (const m of line.matchAll(/flags\.has\(\s*'([A-Z0-9_]+)'\s*\)/g)) addRef(gl.flags, m[1], where);
+    // flags and data types are quoted in the code itself (flags.has('CHART'),
+    // dataConfig.type === 'csv') — matched on the raw line
+    for (const m of rawLine.matchAll(/flags\.has\(\s*'([A-Z0-9_]+)'\s*\)/g)) addRef(gl.flags, m[1], where);
     // style keys: only reads off the theme's style object (this.style /
     // rt.style / r.style / a bare `style` param) — never a DOM element's
     // .style (el.style, tooltipEl.style, ...)
@@ -367,7 +380,7 @@ function extractGl(reg) {
     for (const m of line.matchAll(/\bmeta\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.metaKeys, m[1], where);
     for (const m of line.matchAll(/\bmapOptions\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(inMapBuilder ? gl.mapOptions : gl.optionsKeys, m[1], where);
     for (const m of line.matchAll(/\b(?:dataConfig|lb\._data)\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.dataKeys, m[1], where);
-    for (const m of line.matchAll(/\bdataConfig\.type\s*===\s*'([a-zA-Z]+)'/g)) addRef(gl.dataTypes, m[1].toLowerCase(), where);
+    for (const m of rawLine.matchAll(/\bdataConfig\.type\s*===\s*'([a-zA-Z]+)'/g)) addRef(gl.dataTypes, m[1].toLowerCase(), where);
     for (const m of line.matchAll(/\b_engineOptions\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.optionsKeys, m[1], where);
   });
   const inert = src.match(/const KNOWN_INERT_FLAGS\s*=\s*\[([^\]]*)\]/);
@@ -404,6 +417,21 @@ function extractGl(reg) {
       for (const p of node.init.properties) {
         const k = p.key && (p.key.name || p.key.value);
         if (k) addRef(gl.runtimeApi, `data.${k}`, `ixmaps-gl.js:${p.loc.start.line}`);
+      }
+    }
+    // const GL_BINDING_TARGETS = { 'theme.field': [...], ... } — the flat
+    // binding targets gl implements; every alias of such a target (resolved
+    // through gl's generated FLAT_BINDING_ALIASES table) is implemented
+    if (node.type === 'VariableDeclarator' && node.id.name === 'GL_BINDING_TARGETS' && node.init?.type === 'ObjectExpression') {
+      for (const p of node.init.properties) {
+        const k = p.key && (p.key.value || p.key.name);
+        if (k) addRef(gl.bindingTargets, k, `ixmaps-gl.js:${p.loc.start.line}`);
+      }
+    }
+    if (node.type === 'VariableDeclarator' && node.id.name === 'FLAT_BINDING_ALIASES' && node.init?.type === 'ObjectExpression') {
+      for (const p of node.init.properties) {
+        const k = p.key && (p.key.value || p.key.name);
+        if (k) gl.aliasLines[k] = `ixmaps-gl.js:${p.loc.start.line}`;
       }
     }
     // const engineApi = { ... }  — the map handle .then(map => ...) receives
@@ -446,6 +474,18 @@ function mergeGl(reg, gl) {
     ['runtimeApi', 'runtimeApi'], ['dataKeys', 'dataKeys'], ['dataTypes', 'dataTypes'], ['mapInstanceMethods', 'mapInstanceMethods'],
     ['layerMethods', 'layerMethods'], ['mapBuilderMethods', 'mapBuilderMethods'],
   ];
+  // aliases resolved through gl's target table: an alias (or the style key
+  // flat writes it to) is implemented when gl implements its target
+  for (const [alias, e] of Object.entries(reg.bindingKeys)) {
+    const t = e.target && gl.bindingTargets[e.target];
+    // evidence: the alias's own line in gl's alias table (it names the alias)
+    if (t && !gl.bindingKeys[alias]) gl.bindingKeys[alias] = { refs: t.refs, evidence: [gl.aliasLines[alias] || t.evidence[0]] };
+  }
+  for (const target of Object.keys(gl.bindingTargets)) {
+    const m = target.match(/^style\.(.+)$/);
+    if (m && reg.styleKeys[m[1]] && !gl.styleKeys[m[1]]) gl.styleKeys[m[1]] = gl.bindingTargets[target];
+  }
+
   reg.glOnly = {};
   for (const [sec, glSec, inertSec] of pairs) {
     for (const key of Object.keys(reg[sec])) reg[sec][key].gl = status(sec, gl[glSec], key, inertSec && gl[inertSec]);
