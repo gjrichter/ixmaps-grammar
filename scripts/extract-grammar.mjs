@@ -351,7 +351,9 @@ function extractGl(reg) {
     // alias → its line in gl's generated FLAT_BINDING_ALIASES table
     bindingTargets: {}, aliasLines: {},
     // gl's generated FLAT_META_KEYS: meta keys gl also reads from style
-    metaFromStyle: {}, mapInstanceMethods: {}, layerMethods: {}, mapBuilderMethods: {},
+    metaFromStyle: {},
+    // gl's PROJECT_DATA_KEYS: style.dbtable* keys gl translates into data{}
+    projectDataKeys: {}, mapInstanceMethods: {}, layerMethods: {}, mapBuilderMethods: {},
   };
   // `mapOptions` means two things in gl: inside class MapBuilder it is the
   // Map(div, opts) constructor object; everywhere else (LayerRuntime,
@@ -430,6 +432,12 @@ function extractGl(reg) {
         if (k) addRef(gl.bindingTargets, k, `ixmaps-gl.js:${p.loc.start.line}`);
       }
     }
+    if (node.type === 'VariableDeclarator' && node.id.name === 'PROJECT_DATA_KEYS' && node.init?.type === 'ObjectExpression') {
+      for (const p of node.init.properties) {
+        const k = p.key && (p.key.name || p.key.value);
+        if (k && p.value && typeof p.value.value === 'string') gl.projectDataKeys[k] = { dataKey: p.value.value, where: `ixmaps-gl.js:${p.loc.start.line}` };
+      }
+    }
     if (node.type === 'VariableDeclarator' && node.id.name === 'FLAT_META_KEYS' && node.init?.type === 'ArrayExpression') {
       for (const el of node.init.elements) if (el && typeof el.value === 'string') gl.metaFromStyle[el.value] = `ixmaps-gl.js:${el.loc.start.line}`;
     }
@@ -489,6 +497,14 @@ function mergeGl(reg, gl) {
   for (const target of Object.keys(gl.bindingTargets)) {
     const m = target.match(/^style\.(.+)$/);
     if (m && reg.styleKeys[m[1]] && !gl.styleKeys[m[1]]) gl.styleKeys[m[1]] = gl.bindingTargets[target];
+  }
+
+  // style.dbtable* keys gl translates into data{} for every theme
+  // (projectThemeToDefinition, flat's own newTheme table reversed): such a
+  // key counts only when gl implements the data key it becomes — translating
+  // dbtableExt/dbtableProcess into data.ext/process doesn't make gl run them
+  for (const [k, { dataKey, where }] of Object.entries(gl.projectDataKeys)) {
+    if (reg.styleKeys[k] && !gl.styleKeys[k] && gl.dataKeys[dataKey]) gl.styleKeys[k] = { refs: 1, evidence: [where] };
   }
 
   // meta keys gl reads from style too (flat merges meta into style): the
