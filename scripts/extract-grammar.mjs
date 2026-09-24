@@ -349,7 +349,9 @@ function extractGl(reg) {
     optionsKeys: {}, runtimeApi: {}, dataKeys: {}, dataTypes: {},
     // flat binding target → evidence, from gl's GL_BINDING_TARGETS table;
     // alias → its line in gl's generated FLAT_BINDING_ALIASES table
-    bindingTargets: {}, aliasLines: {}, mapInstanceMethods: {}, layerMethods: {}, mapBuilderMethods: {},
+    bindingTargets: {}, aliasLines: {},
+    // gl's generated FLAT_META_KEYS: meta keys gl also reads from style
+    metaFromStyle: {}, mapInstanceMethods: {}, layerMethods: {}, mapBuilderMethods: {},
   };
   // `mapOptions` means two things in gl: inside class MapBuilder it is the
   // Map(div, opts) constructor object; everywhere else (LayerRuntime,
@@ -428,6 +430,9 @@ function extractGl(reg) {
         if (k) addRef(gl.bindingTargets, k, `ixmaps-gl.js:${p.loc.start.line}`);
       }
     }
+    if (node.type === 'VariableDeclarator' && node.id.name === 'FLAT_META_KEYS' && node.init?.type === 'ArrayExpression') {
+      for (const el of node.init.elements) if (el && typeof el.value === 'string') gl.metaFromStyle[el.value] = `ixmaps-gl.js:${el.loc.start.line}`;
+    }
     if (node.type === 'VariableDeclarator' && node.id.name === 'FLAT_BINDING_ALIASES' && node.init?.type === 'ObjectExpression') {
       for (const p of node.init.properties) {
         const k = p.key && (p.key.value || p.key.name);
@@ -484,6 +489,12 @@ function mergeGl(reg, gl) {
   for (const target of Object.keys(gl.bindingTargets)) {
     const m = target.match(/^style\.(.+)$/);
     if (m && reg.styleKeys[m[1]] && !gl.styleKeys[m[1]]) gl.styleKeys[m[1]] = gl.bindingTargets[target];
+  }
+
+  // meta keys gl reads from style too (flat merges meta into style): the
+  // style key counts as implemented when gl implements the meta key
+  for (const [k, where] of Object.entries(gl.metaFromStyle)) {
+    if (gl.metaKeys[k] && reg.styleKeys[k] && !gl.styleKeys[k]) gl.styleKeys[k] = { refs: 1, evidence: [where] };
   }
 
   reg.glOnly = {};
