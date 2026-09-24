@@ -199,9 +199,11 @@ export class Validator {
   // (the same shape for a project-JSON theme, where type sits in style.type)
   theme(def, ctx) {
     if (!def) return;
+    // the type first — wherever it sits (flat's definition shape keeps it in
+    // style.type) — so its findings lead the report, then the style keys
     if (typeof def.type === 'string') this.typeString(def.type, ctx);
-    this.keysOf(def.style, this.styleKey, ctx);
     if (typeof def.style?.type === 'string') this.typeString(def.style.type, ctx);
+    this.keysOf(def.style, this.styleKey, ctx);
     this.keysOf(def.meta, this.metaKey, ctx);
     this.keysOf(def.binding, this.bindingKey, ctx);
     if (def.data && typeof def.data === 'object') {
