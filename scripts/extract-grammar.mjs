@@ -379,7 +379,8 @@ function extractGl(reg) {
     // style keys: only reads off the theme's style object (this.style /
     // rt.style / r.style / a bare `style` param) — never a DOM element's
     // .style (el.style, tooltipEl.style, ...)
-    for (const m of line.matchAll(/(?:\b(?:this|rt|r)\.|(?<![\w.$]))style\.([a-z][a-zA-Z0-9]*)/g)) addRef(gl.styleKeys, m[1], where);
+    // ctx: gl's pure resolveX(ctx, ...) functions read the theme via ctx
+    for (const m of line.matchAll(/(?:\b(?:this|rt|r|ctx)\.|(?<![\w.$]))style\.([a-z][a-zA-Z0-9]*)/g)) addRef(gl.styleKeys, m[1], where);
     for (const m of line.matchAll(/\bbinding\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.bindingKeys, m[1], where);
     for (const m of line.matchAll(/\bmeta\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.metaKeys, m[1], where);
     for (const m of line.matchAll(/\bmapOptions\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(inMapBuilder ? gl.mapOptions : gl.optionsKeys, m[1], where);
