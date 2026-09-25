@@ -8,7 +8,7 @@
     },
     "gl": {
       "path": "~/Repositories/GitHub/ixmaps-gl/ixmaps-gl.js",
-      "commit": "82f9dd9 2026-09-24"
+      "commit": "a9001fa 2026-09-25"
     },
     "schema": {
       "path": "~/Sites/ixmaps/dev/flat_multi/ixmaps/schema/ixmaps/v1.2.json"
@@ -67,9 +67,9 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4595",
-          "ixmaps-gl.js:5827",
-          "ixmaps-gl.js:5975"
+          "ixmaps-gl.js:4606",
+          "ixmaps-gl.js:5838",
+          "ixmaps-gl.js:5986"
         ]
       }
     },
@@ -124,7 +124,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5599"
+          "ixmaps-gl.js:5610"
         ]
       }
     },
@@ -273,7 +273,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4094"
+          "ixmaps-gl.js:4105"
         ]
       }
     },
@@ -425,7 +425,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4334"
+          "ixmaps-gl.js:4345"
         ]
       }
     },
@@ -486,8 +486,8 @@
         "status": "impl",
         "evidence": [
           "ixmaps-gl.js:1509",
-          "ixmaps-gl.js:4595",
-          "ixmaps-gl.js:5177"
+          "ixmaps-gl.js:4606",
+          "ixmaps-gl.js:5188"
         ]
       }
     },
@@ -513,7 +513,7 @@
         "status": "impl",
         "evidence": [
           "ixmaps-gl.js:1511",
-          "ixmaps-gl.js:5160"
+          "ixmaps-gl.js:5171"
         ]
       }
     },
@@ -645,8 +645,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4325",
-          "ixmaps-gl.js:5239"
+          "ixmaps-gl.js:4336",
+          "ixmaps-gl.js:5250"
         ]
       }
     },
@@ -772,7 +772,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:3870"
+          "ixmaps-gl.js:3882"
         ]
       }
     },
@@ -861,8 +861,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4312",
-          "ixmaps-gl.js:5238"
+          "ixmaps-gl.js:4323",
+          "ixmaps-gl.js:5249"
         ]
       }
     },
@@ -889,7 +889,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5248"
+          "ixmaps-gl.js:5259"
         ]
       }
     },
@@ -936,8 +936,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4102",
-          "ixmaps-gl.js:5248"
+          "ixmaps-gl.js:4113",
+          "ixmaps-gl.js:5259"
         ]
       }
     },
@@ -962,8 +962,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4100",
-          "ixmaps-gl.js:5248"
+          "ixmaps-gl.js:4111",
+          "ixmaps-gl.js:5259"
         ]
       }
     },
@@ -978,8 +978,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4094",
-          "ixmaps-gl.js:5248"
+          "ixmaps-gl.js:4105",
+          "ixmaps-gl.js:5259"
         ]
       }
     },
@@ -1015,7 +1015,7 @@
         "status": "impl",
         "evidence": [
           "ixmaps-gl.js:1510",
-          "ixmaps-gl.js:5143"
+          "ixmaps-gl.js:5154"
         ]
       }
     },
@@ -1264,8 +1264,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5489",
-          "ixmaps-gl.js:5507"
+          "ixmaps-gl.js:5500",
+          "ixmaps-gl.js:5518"
         ]
       }
     },
@@ -1326,7 +1326,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6099"
+          "ixmaps-gl.js:6110"
         ]
       }
     },
@@ -1366,7 +1366,7 @@
         "evidence": [
           "ixmaps-gl.js:1513",
           "ixmaps-gl.js:1514",
-          "ixmaps-gl.js:4595"
+          "ixmaps-gl.js:4606"
         ]
       }
     },
@@ -1629,7 +1629,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5639"
+          "ixmaps-gl.js:5650"
         ]
       }
     },
@@ -1721,7 +1721,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5614"
+          "ixmaps-gl.js:5625"
         ]
       }
     },
@@ -1825,7 +1825,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4149"
+          "ixmaps-gl.js:4160"
         ]
       }
     },
@@ -1980,8 +1980,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4025",
-          "ixmaps-gl.js:5946"
+          "ixmaps-gl.js:4036",
+          "ixmaps-gl.js:5957"
         ]
       }
     },
@@ -2122,8 +2122,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5916",
-          "ixmaps-gl.js:5992"
+          "ixmaps-gl.js:5927",
+          "ixmaps-gl.js:6003"
         ]
       }
     },
@@ -2146,8 +2146,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5928",
-          "ixmaps-gl.js:5992"
+          "ixmaps-gl.js:5939",
+          "ixmaps-gl.js:6003"
         ]
       }
     },
@@ -2383,7 +2383,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:3869"
+          "ixmaps-gl.js:3881"
         ]
       }
     },
@@ -2436,7 +2436,7 @@
         "evidence": [
           "ixmaps-gl.js:1513",
           "ixmaps-gl.js:1514",
-          "ixmaps-gl.js:5153"
+          "ixmaps-gl.js:5164"
         ]
       }
     },
@@ -2595,8 +2595,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4024",
-          "ixmaps-gl.js:5945"
+          "ixmaps-gl.js:4035",
+          "ixmaps-gl.js:5956"
         ]
       }
     },
@@ -2679,7 +2679,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5864"
+          "ixmaps-gl.js:5875"
         ]
       }
     },
@@ -3004,7 +3004,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5464"
+          "ixmaps-gl.js:5475"
         ]
       }
     },
@@ -3139,7 +3139,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:3939"
+          "ixmaps-gl.js:3950"
         ]
       }
     },
@@ -3155,7 +3155,7 @@
         "status": "impl",
         "evidence": [
           "ixmaps-gl.js:2385",
-          "ixmaps-gl.js:4137"
+          "ixmaps-gl.js:4148"
         ]
       }
     },
@@ -3171,8 +3171,8 @@
         "status": "impl",
         "evidence": [
           "ixmaps-gl.js:1509",
-          "ixmaps-gl.js:4595",
-          "ixmaps-gl.js:5177"
+          "ixmaps-gl.js:4606",
+          "ixmaps-gl.js:5188"
         ]
       }
     },
@@ -3356,7 +3356,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6135"
+          "ixmaps-gl.js:6146"
         ]
       }
     },
@@ -3460,7 +3460,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5450"
+          "ixmaps-gl.js:5461"
         ]
       }
     },
@@ -3568,7 +3568,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5473"
+          "ixmaps-gl.js:5484"
         ]
       }
     },
@@ -3632,8 +3632,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4300",
-          "ixmaps-gl.js:4798"
+          "ixmaps-gl.js:4311",
+          "ixmaps-gl.js:4809"
         ]
       }
     },
@@ -3832,7 +3832,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5557"
+          "ixmaps-gl.js:5568"
         ]
       }
     },
@@ -3953,7 +3953,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5552"
+          "ixmaps-gl.js:5563"
         ]
       }
     },
@@ -3990,7 +3990,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:3949"
+          "ixmaps-gl.js:3960"
         ]
       }
     },
@@ -4110,7 +4110,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4020"
+          "ixmaps-gl.js:4031"
         ]
       }
     },
@@ -4288,8 +4288,8 @@
         "status": "impl",
         "evidence": [
           "ixmaps-gl.js:3792",
-          "ixmaps-gl.js:4020",
-          "ixmaps-gl.js:4022"
+          "ixmaps-gl.js:4031",
+          "ixmaps-gl.js:4033"
         ]
       }
     },
@@ -4657,7 +4657,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4083"
+          "ixmaps-gl.js:4094"
         ]
       }
     },
@@ -4694,7 +4694,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4082"
+          "ixmaps-gl.js:4093"
         ]
       }
     },
@@ -4859,7 +4859,7 @@
         "evidence": [
           "ixmaps-gl.js:3008",
           "ixmaps-gl.js:3009",
-          "ixmaps-gl.js:5197"
+          "ixmaps-gl.js:5208"
         ]
       }
     },
@@ -5051,9 +5051,9 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4299",
-          "ixmaps-gl.js:4780",
-          "ixmaps-gl.js:4784"
+          "ixmaps-gl.js:4310",
+          "ixmaps-gl.js:4791",
+          "ixmaps-gl.js:4795"
         ]
       }
     },
@@ -5073,8 +5073,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5312",
-          "ixmaps-gl.js:5413"
+          "ixmaps-gl.js:5323",
+          "ixmaps-gl.js:5424"
         ]
       }
     },
@@ -5123,7 +5123,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6506"
+          "ixmaps-gl.js:6517"
         ]
       }
     },
@@ -5193,9 +5193,9 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4369",
-          "ixmaps-gl.js:5028",
-          "ixmaps-gl.js:5403"
+          "ixmaps-gl.js:4380",
+          "ixmaps-gl.js:5039",
+          "ixmaps-gl.js:5414"
         ]
       }
     },
@@ -5345,9 +5345,9 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5195",
-          "ixmaps-gl.js:5291",
-          "ixmaps-gl.js:5703"
+          "ixmaps-gl.js:5206",
+          "ixmaps-gl.js:5302",
+          "ixmaps-gl.js:5714"
         ]
       }
     },
@@ -5367,9 +5367,9 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5196",
-          "ixmaps-gl.js:5292",
-          "ixmaps-gl.js:5616"
+          "ixmaps-gl.js:5207",
+          "ixmaps-gl.js:5303",
+          "ixmaps-gl.js:5627"
         ]
       }
     },
@@ -5564,7 +5564,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5505"
+          "ixmaps-gl.js:5516"
         ]
       }
     },
@@ -5615,7 +5615,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5487"
+          "ixmaps-gl.js:5498"
         ]
       }
     },
@@ -5698,7 +5698,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5486"
+          "ixmaps-gl.js:5497"
         ]
       }
     },
@@ -5807,7 +5807,7 @@
         "status": "impl",
         "evidence": [
           "ixmaps-gl.js:3051",
-          "ixmaps-gl.js:5425"
+          "ixmaps-gl.js:5436"
         ]
       }
     },
@@ -5888,7 +5888,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5919"
+          "ixmaps-gl.js:5930"
         ]
       }
     },
@@ -5959,7 +5959,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:5484"
+          "ixmaps-gl.js:5495"
         ]
       }
     },
@@ -6028,7 +6028,7 @@
         "evidence": [
           "ixmaps-gl.js:2697",
           "ixmaps-gl.js:3059",
-          "ixmaps-gl.js:5413"
+          "ixmaps-gl.js:5424"
         ]
       }
     },
@@ -6300,8 +6300,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4456",
-          "ixmaps-gl.js:4470"
+          "ixmaps-gl.js:4467",
+          "ixmaps-gl.js:4481"
         ]
       }
     },
@@ -6321,8 +6321,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4456",
-          "ixmaps-gl.js:4472"
+          "ixmaps-gl.js:4467",
+          "ixmaps-gl.js:4483"
         ]
       }
     },
@@ -6342,8 +6342,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4456",
-          "ixmaps-gl.js:4471"
+          "ixmaps-gl.js:4467",
+          "ixmaps-gl.js:4482"
         ]
       }
     },
@@ -6593,7 +6593,7 @@
         "evidence": [
           "ixmaps-gl.js:2394",
           "ixmaps-gl.js:3168",
-          "ixmaps-gl.js:4731"
+          "ixmaps-gl.js:4742"
         ]
       }
     },
@@ -6667,7 +6667,7 @@
         "status": "impl",
         "evidence": [
           "ixmaps-gl.js:3161",
-          "ixmaps-gl.js:5096"
+          "ixmaps-gl.js:5107"
         ]
       }
     },
@@ -6744,7 +6744,7 @@
         "evidence": [
           "ixmaps-gl.js:3788",
           "ixmaps-gl.js:3789",
-          "ixmaps-gl.js:4341"
+          "ixmaps-gl.js:4352"
         ]
       }
     },
@@ -6764,7 +6764,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6136"
+          "ixmaps-gl.js:6147"
         ]
       }
     },
@@ -6876,9 +6876,9 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4342",
-          "ixmaps-gl.js:5350",
-          "ixmaps-gl.js:5370"
+          "ixmaps-gl.js:4353",
+          "ixmaps-gl.js:5361",
+          "ixmaps-gl.js:5381"
         ]
       }
     },
@@ -6949,7 +6949,7 @@
         "evidence": [
           "ixmaps-gl.js:3750",
           "ixmaps-gl.js:3756",
-          "ixmaps-gl.js:4084"
+          "ixmaps-gl.js:4095"
         ]
       }
     },
@@ -7341,8 +7341,8 @@
         "status": "impl",
         "evidence": [
           "ixmaps-gl.js:2386",
-          "ixmaps-gl.js:4136",
-          "ixmaps-gl.js:4278"
+          "ixmaps-gl.js:4147",
+          "ixmaps-gl.js:4289"
         ]
       }
     },
@@ -7476,7 +7476,7 @@
         "evidence": [
           "ixmaps-gl.js:2439",
           "ixmaps-gl.js:3786",
-          "ixmaps-gl.js:3998"
+          "ixmaps-gl.js:4009"
         ]
       }
     },
@@ -7544,7 +7544,7 @@
         "evidence": [
           "ixmaps-gl.js:2678",
           "ixmaps-gl.js:2686",
-          "ixmaps-gl.js:4978"
+          "ixmaps-gl.js:4989"
         ]
       }
     },
@@ -7577,7 +7577,7 @@
         "status": "impl",
         "evidence": [
           "ixmaps-gl.js:2608",
-          "ixmaps-gl.js:4977"
+          "ixmaps-gl.js:4988"
         ]
       }
     },
@@ -7594,7 +7594,7 @@
         "evidence": [
           "ixmaps-gl.js:1188",
           "ixmaps-gl.js:2607",
-          "ixmaps-gl.js:4976"
+          "ixmaps-gl.js:4987"
         ]
       }
     },
@@ -7609,8 +7609,8 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:4960",
-          "ixmaps-gl.js:4966"
+          "ixmaps-gl.js:4971",
+          "ixmaps-gl.js:4977"
         ]
       }
     }
@@ -10999,7 +10999,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6600"
+          "ixmaps-gl.js:6611"
         ]
       }
     },
@@ -11526,7 +11526,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6600"
+          "ixmaps-gl.js:6611"
         ]
       }
     },
@@ -11589,7 +11589,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6337"
+          "ixmaps-gl.js:6348"
         ]
       }
     },
@@ -11632,7 +11632,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6376"
+          "ixmaps-gl.js:6387"
         ]
       }
     },
@@ -12714,7 +12714,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6601"
+          "ixmaps-gl.js:6612"
         ]
       }
     },
@@ -12788,7 +12788,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6600"
+          "ixmaps-gl.js:6611"
         ]
       }
     },
@@ -13747,7 +13747,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6600"
+          "ixmaps-gl.js:6611"
         ]
       }
     },
@@ -14108,7 +14108,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6601"
+          "ixmaps-gl.js:6612"
         ]
       }
     },
@@ -14358,7 +14358,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6602"
+          "ixmaps-gl.js:6613"
         ]
       }
     },
@@ -15344,7 +15344,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6600"
+          "ixmaps-gl.js:6611"
         ]
       }
     },
@@ -15517,7 +15517,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6601"
+          "ixmaps-gl.js:6612"
         ]
       }
     },
@@ -15997,7 +15997,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6601"
+          "ixmaps-gl.js:6612"
         ]
       }
     },
@@ -16241,7 +16241,7 @@
       "gl": {
         "status": "impl",
         "evidence": [
-          "ixmaps-gl.js:6602"
+          "ixmaps-gl.js:6613"
         ]
       }
     },
@@ -16329,7 +16329,7 @@
   "glOnly": {
     "flags": {
       "SPLINE": [
-        "ixmaps-gl.js:5580"
+        "ixmaps-gl.js:5591"
       ]
     },
     "styleKeys": {
@@ -16345,7 +16345,7 @@
       ],
       "textContent": [
         "ixmaps-gl.js:1212",
-        "ixmaps-gl.js:6507"
+        "ixmaps-gl.js:6518"
       ]
     },
     "optionsKeys": {
@@ -16358,10 +16358,10 @@
     },
     "runtimeApi": {
       "data.fShowFacetValues": [
-        "ixmaps-gl.js:6336"
+        "ixmaps-gl.js:6347"
       ],
       "validate": [
-        "ixmaps-gl.js:6604"
+        "ixmaps-gl.js:6615"
       ]
     },
     "dataKeys": {
