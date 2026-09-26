@@ -21,7 +21,8 @@
     "optionsKeys": {
       "splash": "ixmaps-gl: false disables the loading splash",
       "splashText": "ixmaps-gl: loading splash text",
-      "validate": "ixmaps-gl: opt-in grammar validation (true, or a validator module URL)"
+      "validate": "ixmaps-gl: opt-in grammar validation (true, or a validator module URL)",
+      "trustedscripts": "ixmaps-gl: URL prefixes under which a project's data.ext processing scripts may run (off by default; ignored when set by a project file)"
     },
     "dataKeys": {
       "urls": "ixmaps-gl: several CSV urls concatenated",
@@ -62,6 +63,18 @@
       "runtimes"
     ]
   },
+  "dataKeys": {
+    "ext": {
+      "gl": {
+        "note": "ixmaps-gl runs only a processing script (data.ext on a loaded csv file, ixmaps.<name>.after/.process) and only when its URL is under the page's .options({trustedscripts}); broker scripts (type \"ext\") are not supported"
+      }
+    },
+    "name": {
+      "gl": {
+        "note": "ixmaps-gl reads data.name only to find a trusted processing script's ixmaps.<name>.after/.process; not a table/cache name"
+      }
+    }
+  },
   "flags": {
     "SIZE": {
       "gl": {
@@ -77,6 +90,12 @@
     }
   },
   "dataTypes": {
+    "ext": {
+      "gl": {
+        "status": "missing",
+        "note": "broker scripts (data.type \"ext\": the script loads the data and calls setExternalData) are not supported by ixmaps-gl; its only reference is the guard that skips them (loadProcessingScript)"
+      }
+    },
     "json": {
       "gl": {
         "status": "implicit",
