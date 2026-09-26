@@ -76,6 +76,11 @@
     }
   },
   "flags": {
+    "DIFFERENCE": {
+      "gl": {
+        "note": "ixmaps-gl ports flat's per-item form (loadValuesOfTheme: one value field with field100 → v − field100; several value fields → neighbour differences, last dropped) and, for value-based AGGREGATE themes, field100 on the cell sums; not yet: the series difference after aggregation (AGGREGATE with several value fields, e.g. PLOT grid series)"
+      }
+    },
     "SIZE": {
       "gl": {
         "status": "implicit",

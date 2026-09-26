@@ -1,6 +1,6 @@
 {
   "name": "ixmaps-grammar",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "Machine-readable ixmaps theme grammar + API registry, and a static checker for ixmaps / ixmaps-gl pages",
   "type": "module",
   "bin": {
