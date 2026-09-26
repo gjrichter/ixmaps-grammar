@@ -87,6 +87,12 @@
         "note": "flat's default (fNegativeValuePossible = true, maptheme.js 7742): the flag changes nothing there; ixmaps-gl likewise keeps negative values and sizes bubbles by the absolute value, as flat (valueRadius)"
       }
     },
+    "STACKED": {
+      "gl": {
+        "status": "missing",
+        "note": "stacked charts are not drawn by ixmaps-gl; it reads STACKED only to keep a per-item PLOT point marker for a 0 value, as flat does"
+      }
+    },
     "SIZE": {
       "gl": {
         "status": "implicit",
