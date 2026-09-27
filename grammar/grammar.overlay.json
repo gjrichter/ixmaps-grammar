@@ -23,7 +23,8 @@
       "splashText": "ixmaps-gl: loading splash text",
       "validate": "ixmaps-gl: opt-in grammar validation (true, or a validator module URL)",
       "trustedscripts": "ixmaps-gl: URL prefixes under which a project's data.ext scripts (processing scripts, brokers) may run (off by default; ignored when set by a project file)",
-      "datajs": "ixmaps-gl: data.js build to load (url), or false for none — loaded by default from flat's CDN URL"
+      "datajs": "ixmaps-gl: data.js build to load (url), or false for none — loaded by default from flat's CDN URL",
+      "worldcopies": "ixmaps-gl: false draws the world once (default true: MapLibre world copies, themes repeated on each; false also limits the zoom-out to the window width)"
     },
     "dataKeys": {
       "urls": "ixmaps-gl: several CSV urls concatenated",
@@ -86,6 +87,24 @@
       "gl": {
         "status": "implicit",
         "note": "flat's default (fNegativeValuePossible = true, maptheme.js 7742): the flag changes nothing there; ixmaps-gl likewise keeps negative values and sizes bubbles by the absolute value, as flat (valueRadius)"
+      }
+    },
+    "BOX": {
+      "gl": {
+        "status": "impl",
+        "note": "ixmaps-gl draws flat's chart box (maptheme.js 18446-18481, 18756-18925), matched against flat's SVG: a rectangle around the chart and its title (boxcolor, boxopacity, bordercolor, borderstyle, borderwidth, borderradius, boxmargin), or with CIRCULAR (CIRCULARBOX) a circle; shown between boxlower and boxupper. Tested as a substring, as flat. Not the AUTOSIZE/GRIDSIZE square box"
+      }
+    },
+    "TITLE": {
+      "gl": {
+        "status": "impl",
+        "note": "ixmaps-gl draws the item title (binding title / titlefield) with a BOX, as flat's BOX block: font 5·normalX(1)·textscale in textcolor over a white halo, wrapped to the box width, a cell of more than 3 items titled \"(n)\". Tested as a substring, so BOTTOMTITLESUM counts; CLIPPEDTITLE and titleupper/titlelower are not read"
+      }
+    },
+    "BOTTOMTITLE": {
+      "gl": {
+        "status": "impl",
+        "note": "ixmaps-gl puts the BOX title below the box (first baseline one font under it), as flat"
       }
     },
     "STACKED": {
