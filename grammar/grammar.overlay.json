@@ -170,13 +170,13 @@
     "kml": {
       "gl": {
         "status": "impl",
-        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; data.js 1.63 rejects standard KML (root <kml> not found by its descendant-only check, 'feed not kml') — ixmaps-gl then fails with a timeout error"
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; verified with data.js 9b5297d (earlier builds rejected every standard KML): togeojson samples — points, lines, polygons with holes, MultiGeometry (a mixed one is a GeometryCollection, not drawn by ixmaps-gl)"
       }
     },
     "gml": {
       "gl": {
         "status": "impl",
-        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; not verified"
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; loads with data.js 9b5297d (GDAL samples) — data.js's GML field extraction is basic"
       }
     },
     "geobuf": {
@@ -206,7 +206,7 @@
     "rss": {
       "gl": {
         "status": "impl",
-        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; not verified"
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; verified with data.js 9b5297d: a BBC RSS feed, 29 items (Atom is not parsed by data.js)"
       }
     }
   }
