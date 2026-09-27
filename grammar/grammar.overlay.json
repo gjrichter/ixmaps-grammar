@@ -22,7 +22,8 @@
       "splash": "ixmaps-gl: false disables the loading splash",
       "splashText": "ixmaps-gl: loading splash text",
       "validate": "ixmaps-gl: opt-in grammar validation (true, or a validator module URL)",
-      "trustedscripts": "ixmaps-gl: URL prefixes under which a project's data.ext scripts (processing scripts, brokers) may run (off by default; ignored when set by a project file)"
+      "trustedscripts": "ixmaps-gl: URL prefixes under which a project's data.ext scripts (processing scripts, brokers) may run (off by default; ignored when set by a project file)",
+      "datajs": "ixmaps-gl: data.js build to load (url), or false for none — loaded by default from flat's CDN URL"
     },
     "dataKeys": {
       "urls": "ixmaps-gl: several CSV urls concatenated",
@@ -114,14 +115,98 @@
     },
     "json": {
       "gl": {
-        "status": "implicit",
-        "note": "ixmaps-gl accepts this only as inline .data({obj}) — any obj whose type is not topojson/geojson is read as a row table (ixmaps-gl.js:403); URL loads support only csv/topojson/geojson"
+        "status": "impl",
+        "note": "ixmaps-gl reads inline .data({obj}) as a row table itself, and a url through data.js (loaded by default, as flat)"
       }
     },
     "jsondb": {
       "gl": {
-        "status": "implicit",
-        "note": "ixmaps-gl accepts this only as inline .data({obj}) — any obj whose type is not topojson/geojson is read as a row table (ixmaps-gl.js:403); URL loads support only csv/topojson/geojson"
+        "status": "impl",
+        "note": "ixmaps-gl reads inline .data({obj}) as a row table itself, and a url through data.js (loaded by default, as flat)"
+      }
+    },
+    "flatgeobuf": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; verified: flatgeobuf.org countries.fgb, 179 features = flat"
+      }
+    },
+    "fgb": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; verified: flatgeobuf.org countries.fgb, 179 features = flat"
+      }
+    },
+    "parquet": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; verified: a 153 559-point Overture GeoParquet (flat: 150 456 items — it merges points at identical positions)"
+      }
+    },
+    "geoparquet": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; see parquet"
+      }
+    },
+    "jsonstat": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; verified: json-stat.org oecd sample, 432 rows"
+      }
+    },
+    "geopackage": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\" (DuckDB WASM); not verified — headless Chromium could not start DuckDB's worker thread"
+      }
+    },
+    "gpkg": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\" (DuckDB WASM); not verified, see geopackage"
+      }
+    },
+    "kml": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; data.js 1.63 rejects standard KML (root <kml> not found by its descendant-only check, 'feed not kml') — ixmaps-gl then fails with a timeout error"
+      }
+    },
+    "gml": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; not verified"
+      }
+    },
+    "geobuf": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; not verified"
+      }
+    },
+    "pbf": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; not verified"
+      }
+    },
+    "ndjson": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; not verified"
+      }
+    },
+    "jsonl": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; not verified"
+      }
+    },
+    "rss": {
+      "gl": {
+        "status": "impl",
+        "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; a geometry column becomes features with geo: \"geometry\"; not verified"
       }
     }
   }
