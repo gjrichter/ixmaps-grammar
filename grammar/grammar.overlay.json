@@ -43,7 +43,8 @@
       "setSizeField": "ixmaps-gl",
       "setThemeStyle": "ixmaps-gl",
       "setThemeVisible": "ixmaps-gl",
-      "getValidationReport": "ixmaps-gl: findings of the opt-in grammar validation (null when off)"
+      "getValidationReport": "ixmaps-gl: findings of the opt-in grammar validation (null when off)",
+      "setLegend": "ixmaps-gl runtime switch for the legend map option (same values as ixmaps.Map(id, {legend}): on, \"closed\", off)"
     },
     "runtimeApi": {
       "data.fShowFacetValues": "ixmaps-gl facet display switch"
@@ -226,6 +227,14 @@
       "gl": {
         "status": "impl",
         "note": "read through data.js (ixmaps-gl loads it by default, as flat) — a Table; verified with data.js 9b5297d: a BBC RSS feed, 29 items (Atom is not parsed by data.js)"
+      }
+    }
+  },
+  "styleKeys": {
+    "showdata": {
+      "gl": {
+        "status": "implicit",
+        "note": "ixmaps-gl always shows the data in tooltips and never tests showdata; flat needs it (fShowData, maptheme.js 1577) — keep it in definitions meant for both engines"
       }
     }
   }
