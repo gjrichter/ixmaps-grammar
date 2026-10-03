@@ -125,6 +125,16 @@
         "status": "implicit",
         "note": "ixmaps-gl aggregates as a per-record COUNT whenever binding.size is unset (ixmaps-gl.js:3802) and never tests the COUNT flag itself"
       }
+    },
+    "DOPACITYLOGMAX": {
+      "gl": {
+        "note": "ixmaps-gl applies it only to the dominant class of a CHOROPLETH|CATEGORICAL|AGGREGATE theme"
+      }
+    },
+    "DOPACITYPOWMAX": {
+      "gl": {
+        "note": "ixmaps-gl applies it only to the dominant class of a CHOROPLETH|CATEGORICAL|AGGREGATE theme"
+      }
     }
   },
   "dataTypes": {
@@ -235,6 +245,26 @@
       "gl": {
         "status": "implicit",
         "note": "ixmaps-gl always shows the data in tooltips and never tests showdata; flat needs it (fShowData, maptheme.js 1577) — keep it in definitions meant for both engines"
+      }
+    }
+  },
+  "runtimeApi": {
+    "filterThemeItems": {
+      "gl": {
+        "status": "inert",
+        "note": "ixmaps-gl accepts the call (a page's facet histogram hover) but filters no items yet"
+      }
+    },
+    "highlightThemeItems": {
+      "gl": {
+        "status": "inert",
+        "note": "ixmaps-gl accepts the call but highlights no items yet"
+      }
+    },
+    "message": {
+      "gl": {
+        "status": "inert",
+        "note": "ixmaps-gl accepts the call but shows no message"
       }
     }
   }
