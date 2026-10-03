@@ -355,7 +355,8 @@ function extractGl(reg) {
     // gl's PROJECT_DATA_KEYS: style.dbtable* keys gl translates into data{}
     projectDataKeys: {}, mapInstanceMethods: {}, layerMethods: {}, mapBuilderMethods: {},
   };
-  // `mapOptions` means two things in gl: inside class MapBuilder it is the
+  // `mapOptions` means two things in gl: inside class MapBuilder (or read
+  // as builder.mapOptions) it is the
   // Map(div, opts) constructor object; everywhere else (LayerRuntime,
   // valueRadius, ...) it is the .options({...}) object passed down as
   // LayerRuntime's mapOptions. Classify reads by enclosing class.
@@ -383,7 +384,9 @@ function extractGl(reg) {
     for (const m of line.matchAll(/(?:\b(?:this|rt|r|ctx)\.|(?<![\w.$]))style\.([a-z][a-zA-Z0-9]*)/g)) addRef(gl.styleKeys, m[1], where);
     for (const m of line.matchAll(/\bbinding\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.bindingKeys, m[1], where);
     for (const m of line.matchAll(/\bmeta\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.metaKeys, m[1], where);
-    for (const m of line.matchAll(/\bmapOptions\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(inMapBuilder ? gl.mapOptions : gl.optionsKeys, m[1], where);
+    // `builder.mapOptions` is the MapBuilder's own options wherever it is
+    // read (gl's createLegend / createTooltips get the builder passed in)
+    for (const m of line.matchAll(/(\bbuilder\.)?\bmapOptions\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(inMapBuilder || m[1] ? gl.mapOptions : gl.optionsKeys, m[2], where);
     for (const m of line.matchAll(/\b(?:dataConfig|lb\._data)\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.dataKeys, m[1], where);
     for (const m of rawLine.matchAll(/\bdataConfig\.type\s*===\s*'([a-zA-Z]+)'/g)) addRef(gl.dataTypes, m[1].toLowerCase(), where);
     for (const m of line.matchAll(/\b_engineOptions\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.optionsKeys, m[1], where);
