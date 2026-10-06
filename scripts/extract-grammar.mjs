@@ -363,6 +363,15 @@ function extractGl(reg) {
   const ast = acorn.parse(src, { ecmaVersion: 'latest', locations: true });
   let mb = [0, -1];
   walk(ast, n => { if (n.type === 'ClassDeclaration' && n.id?.name === 'MapBuilder') mb = [n.loc.start.line, n.loc.end.line]; });
+  // a helper handed builder.mapOptions (gl's legendAlignCssFor(builder.mapOptions))
+  // reads the Map() options through its own `mapOptions` parameter: its
+  // body's reads count as map options too (it may also get LayerRuntime's)
+  const builderOptionFns = new Set([...src.matchAll(/\b([A-Za-z_$][\w$]*)\(\s*builder\.mapOptions\b/g)].map(m => m[1]));
+  const builderOptionRanges = [];
+  walk(ast, n => {
+    if (n.type === 'FunctionDeclaration' && builderOptionFns.has(n.id?.name)
+      && n.params.some(p => p.type === 'Identifier' && p.name === 'mapOptions')) builderOptionRanges.push([n.loc.start.line, n.loc.end.line]);
+  });
   // Scan CODE only: drop // comments and '...' / "..." strings first, so a
   // keyword that merely appears in a comment or in a string (e.g. the
   // generated alias table's "style.colorfield" values) isn't taken for a
@@ -374,6 +383,7 @@ function extractGl(reg) {
     const line = codeOnly(rawLine);
     const where = `ixmaps-gl.js:${i + 1}`;
     const inMapBuilder = i + 1 >= mb[0] && i + 1 <= mb[1];
+    const inBuilderOptionFn = builderOptionRanges.some(([a, b]) => i + 1 >= a && i + 1 <= b);
     // flags and data types are quoted in the code itself (flags.has('CHART'),
     // dataConfig.type === 'csv') — matched on the raw line
     for (const m of rawLine.matchAll(/flags\.has\(\s*'([A-Z0-9_]+)'\s*\)/g)) addRef(gl.flags, m[1], where);
@@ -386,7 +396,10 @@ function extractGl(reg) {
     for (const m of line.matchAll(/\bmeta\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.metaKeys, m[1], where);
     // `builder.mapOptions` is the MapBuilder's own options wherever it is
     // read (gl's createLegend / createTooltips get the builder passed in)
-    for (const m of line.matchAll(/(\bbuilder\.)?\bmapOptions\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(inMapBuilder || m[1] ? gl.mapOptions : gl.optionsKeys, m[2], where);
+    for (const m of line.matchAll(/(\bbuilder\.)?\bmapOptions\.([a-zA-Z][a-zA-Z0-9]*)/g)) {
+      addRef(inMapBuilder || m[1] ? gl.mapOptions : gl.optionsKeys, m[2], where);
+      if (inBuilderOptionFn && !inMapBuilder && !m[1]) addRef(gl.mapOptions, m[2], where);
+    }
     for (const m of line.matchAll(/\b(?:dataConfig|lb\._data)\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.dataKeys, m[1], where);
     for (const m of rawLine.matchAll(/\bdataConfig\.type\s*===\s*'([a-zA-Z]+)'/g)) addRef(gl.dataTypes, m[1].toLowerCase(), where);
     for (const m of line.matchAll(/\b_engineOptions\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.optionsKeys, m[1], where);
