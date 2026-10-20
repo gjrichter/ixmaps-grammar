@@ -8,7 +8,7 @@
     },
     "gl": {
       "path": "~/Repositories/GitHub/ixmaps-gl/ixmaps-gl.js",
-      "commit": "a698c3a 2026-10-20"
+      "commit": "f4b60d5 2026-10-20"
     },
     "schema": {
       "path": "~/Sites/ixmaps/dev/flat_multi/ixmaps/schema/ixmaps/v1.2.json"
@@ -490,7 +490,8 @@
         "status": "impl",
         "evidence": [
           "ixmaps-gl.js:10183"
-        ]
+        ],
+        "note": "read by ixmaps-gl for pie, vector and bar charts; on a categorical GRIDSIZE|DOMINANT HexBin (flat's configurator writes CENTER|DOMINANT: the dominant category's symbol centered in the cell) gl draws exactly that — one cell per dominant category, centered — without testing the flag"
       }
     },
     "CENTERVALUE": {
@@ -1268,7 +1269,8 @@
       ],
       "substringMatched": true,
       "gl": {
-        "status": "missing"
+        "status": "implicit",
+        "note": "flat selects the aggregate-at-load path with it (maptheme.js 9505) — the path every AGGREGATE theme without COMPATIBLE or PERCENTOFMEAN takes anyway, so the flag changes nothing on such a theme; ixmaps-gl always aggregates on its grid and does not read the flag"
       }
     },
     "FEATURE": {
