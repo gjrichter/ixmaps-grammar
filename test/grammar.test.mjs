@@ -57,3 +57,9 @@ test('gl status is one of the known values', () => {
   for (const sec of ['flags', 'styleKeys', 'bindingKeys', 'runtimeApi'])
     for (const [k, e] of Object.entries(g[sec])) assert.ok(['impl', 'implicit', 'inert', 'missing'].includes(e.gl?.status), `${sec}.${k}`);
 });
+
+test('style keys gl reads through a local alias of the style object (const st = this.style) count as implemented', () => {
+  // the BOX code reads st.boxmargin, st.borderradius, ...: the line regex alone sees only the spelled receivers
+  for (const k of ['boxmargin', 'boxcolor', 'borderwidth', 'borderstyle', 'borderradius', 'titleupper', 'gapsize', 'fadenegative'])
+    assert.equal(g.styleKeys[k].gl.status, 'impl', k);
+});

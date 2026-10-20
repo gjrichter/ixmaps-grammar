@@ -411,6 +411,40 @@ function extractGl(reg) {
     for (const m of rawLine.matchAll(/\bdataConfig\.type\s*===\s*'([a-zA-Z]+)'/g)) addRef(gl.dataTypes, m[1].toLowerCase(), where);
     for (const m of line.matchAll(/\b_engineOptions\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.optionsKeys, m[1], where);
   });
+  // style keys read through a LOCAL ALIAS of the theme's style object — `const st = this.style`,
+  // `const st = rt.style || {}`, `const st = style || {}` — which the line regex above cannot see
+  // (it only knows the spelled receivers: the box code reads st.boxmargin, st.borderradius, ...).
+  // Scoped to the declaring function and the functions nested in it, so an unrelated `st` elsewhere
+  // (the native heatmap's state object is also called st) is not read as the style object.
+  const isStyleRef = n => !!n && ((n.type === 'MemberExpression' && !n.computed && n.property.name === 'style'
+      && (n.object.type === 'ThisExpression' || (n.object.type === 'Identifier' && /^(rt|r|ctx)$/.test(n.object.name))))
+    || (n.type === 'Identifier' && n.name === 'style'));
+  const isStyleAliasInit = init => isStyleRef(init) || (!!init && init.type === 'LogicalExpression' && init.operator === '||' && isStyleRef(init.left));
+  const countedAliasReads = new Set();
+  walk(ast, fn => {
+    if (!/Function/.test(fn.type) || !fn.body) return;
+    const aliases = new Set();
+    const declaredHere = n => {   // declarations of this function's own scope, not of the nested functions
+      if (!n || typeof n.type !== 'string') return;
+      if (n !== fn && /Function/.test(n.type)) return;
+      if (n.type === 'VariableDeclarator' && n.id.type === 'Identifier' && n.id.name !== 'style' && isStyleAliasInit(n.init)) aliases.add(n.id.name);
+      for (const k of Object.keys(n)) {
+        const v = n[k];
+        if (k === 'loc') continue;
+        if (Array.isArray(v)) v.forEach(c => c && declaredHere(c)); else if (v && typeof v.type === 'string') declaredHere(v);
+      }
+    };
+    declaredHere(fn);
+    if (!aliases.size) return;
+    walk(fn.body, n => {
+      if (n.type !== 'MemberExpression' || n.computed || n.object.type !== 'Identifier' || !aliases.has(n.object.name)) return;
+      if (n.property.type !== 'Identifier' || !/^[a-z][a-zA-Z0-9]*$/.test(n.property.name)) return;
+      const id = `${n.start}:${n.property.name}`;
+      if (countedAliasReads.has(id)) return;
+      countedAliasReads.add(id);
+      addRef(gl.styleKeys, n.property.name, `ixmaps-gl.js:${n.loc.start.line}`);
+    });
+  });
   const inert = src.match(/const KNOWN_INERT_FLAGS\s*=\s*\[([^\]]*)\]/);
   if (inert) {
     const bodyStart = inert.index + inert[0].indexOf('[') + 1;
