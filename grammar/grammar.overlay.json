@@ -13,10 +13,19 @@
     "$comment": "Keys ixmaps-gl reads that ixmaps-flat does not know. Valid with --engine gl; flagged as gl-only with --engine flat (flat ignores them silently).",
     "styleKeys": {
       "legendtheme": "ixmaps-gl-only legend color theme (ixmaps-gl.js .style({legendtheme:'light'}))",
-      "legendfilter": "ixmaps-gl-only legend filter"
+      "legendfilter": "ixmaps-gl-only legend filter",
+      "radiuspx": "ixmaps-gl HEATMAP / MLHEATMAP: kernel radius in screen pixels at the reference zoom (default 30)",
+      "intensity": "ixmaps-gl HEATMAP / MLHEATMAP: multiplies the density (default 1)",
+      "threshold": "ixmaps-gl HEATMAP: density below this fraction of the maximum is transparent (default 0.05)",
+      "weightmax": "ixmaps-gl MLHEATMAP: the weight that counts 1 (default: the largest weight)",
+      "bandwidth": "ixmaps-gl KDE: Gaussian bandwidth in km (default: by zoom)",
+      "kdelevels": "ixmaps-gl KDE: band thresholds as fractions of the maximum, an array or \"0.2,0.5\" (default 0.15, 0.30, 0.50, 0.70)"
     },
     "flags": {
-      "SPLINE": "ixmaps-gl PLOT curve smoothing"
+      "SPLINE": "ixmaps-gl PLOT curve smoothing",
+      "HEATMAP": "ixmaps-gl: kernel-density heatmap (deck.gl HeatmapLayer), weighted by binding.size; radius style.radiuspx; not drawn on the globe",
+      "MLHEATMAP": "ixmaps-gl: MapLibre's native heatmap layer (GPU kernel, absolute density, radius and intensity follow the zoom); also on the globe",
+      "KDE": "ixmaps-gl: kernel density estimate of the visible records as stacked polygon bands (worker + d3-contour); not drawn on the globe"
     },
     "optionsKeys": {
       "splash": "ixmaps-gl: false disables the loading splash",

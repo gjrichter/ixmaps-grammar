@@ -1,0 +1,6 @@
+<!DOCTYPE html><html><body><div id="map"></div><script>
+ixmaps.Map("map", { mapType: "VT_TONER_LITE" })
+  .layer(ixmaps.layer("h").binding({ position: "lat|lon", size: "n" }).type("HEATMAP|SHOW").style({ radiuspx: 20, intensity: 1, threshold: 0.05 }))
+  .layer(ixmaps.layer("m").binding({ position: "lat|lon", size: "n" }).type("MLHEATMAP|SHOW").style({ radiuspx: 5, intensity: 1, weightmax: 6 }))
+  .layer(ixmaps.layer("k").binding({ position: "lat|lon", size: "n" }).type("KDE|SHOW").style({ bandwidth: 2, kdelevels: "0.2,0.5" }));
+</script></body></html>

@@ -53,7 +53,7 @@ test('engine=flat flags gl-only extensions; engine=gl flags what gl lacks', () =
   assert.deepEqual(flat.findings.filter(f => f.code === 'gl-only').map(f => f.keyword).sort(), ['SPLINE', 'legendtheme']);
   assert.equal(errors(flat).length, 0);
   const gl = checkFile(fx('gl_only.html'), { engine: 'gl' });
-  assert.ok(gl.findings.some(f => f.code === 'gl-unsupported' && f.keyword === 'PIE'));
+  assert.ok(gl.findings.some(f => f.code === 'gl-unsupported' && f.keyword === 'DONUT'));
   assert.ok(!gl.findings.some(f => f.code === 'gl-only'));
   assert.ok(!gl.findings.some(f => ['CHART', 'PLOT', 'GRIDSIZE', 'VALUES', 'scale'].includes(f.keyword) && f.code === 'gl-unsupported'));
 });
@@ -119,4 +119,13 @@ test('map handles stored on an object (window._map = ixmaps.Map(...)) are tracke
     window._map.layer("a").type("CHART|BUBBL").style({ fillOpacity: 1 });
     _map.then(map => map.changeThemeStyl("a", "x"));`);
   assert.deepEqual(errors(r).map(f => f.keyword).sort(), ['BUBBL', 'changeThemeStyl', 'fillOpacity']);
+});
+
+test('the gl density types HEATMAP, MLHEATMAP and KDE and their style keys: valid for gl, gl-only for flat', () => {
+  const words = ['HEATMAP', 'MLHEATMAP', 'KDE', 'radiuspx', 'intensity', 'threshold', 'weightmax', 'bandwidth', 'kdelevels'];
+  const gl = checkFile(fx('gl_density.html'), { engine: 'gl' });
+  assert.deepEqual(gl.findings.filter(f => f.severity === 'error' || f.severity === 'warning'), [], `engine gl: ${codes(gl).join(', ')}`);
+  const flat = checkFile(fx('gl_density.html'));
+  assert.deepEqual(flat.findings.filter(f => f.severity === 'error'), [], 'flat: not errors (typos), only gl-only warnings');
+  assert.deepEqual([...new Set(flat.findings.filter(f => f.code === 'gl-only').map(f => f.keyword))].sort(), words.slice().sort());
 });

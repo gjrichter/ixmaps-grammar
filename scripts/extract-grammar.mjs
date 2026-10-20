@@ -387,6 +387,13 @@ function extractGl(reg) {
     // flags and data types are quoted in the code itself (flags.has('CHART'),
     // dataConfig.type === 'csv') — matched on the raw line
     for (const m of rawLine.matchAll(/flags\.has\(\s*'([A-Z0-9_]+)'\s*\)/g)) addRef(gl.flags, m[1], where);
+    // the same flag tests through the flatFlag helper (flat's own substring
+    // convention, any flags receiver: flags / this.flags / rt.flags) and
+    // sequenceLayout's word() word-boundary test — without these, flags the
+    // engine genuinely implements (RINGS, CENTER, TITLE, BOX, ...) classify
+    // as gl-missing only because of how they are spelled
+    for (const m of rawLine.matchAll(/\bflatFlag\(\s*(?:[A-Za-z_$][\w$.]*\.)?flags\s*,\s*'([A-Z0-9_]+)'\s*\)/g)) addRef(gl.flags, m[1], where);
+    for (const m of rawLine.matchAll(/\bword\(\s*'([A-Z0-9_]+)'\s*\)/g)) addRef(gl.flags, m[1], where);
     // style keys: only reads off the theme's style object (this.style /
     // rt.style / r.style / a bare `style` param) — never a DOM element's
     // .style (el.style, tooltipEl.style, ...)

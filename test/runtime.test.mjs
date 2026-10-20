@@ -47,7 +47,7 @@ test('createValidator validates plain values and passes ctx through', () => {
   const found = [];
   const v = createValidator({ engine: 'gl', onFinding: (f, ctx) => found.push({ ...f, layer: ctx.layer }) });
   v.theme({
-    type: 'CHART|PIE|CATEGORICL',
+    type: 'CHART|DONUT|CATEGORICL',
     style: { fillOpacity: 0.5, scale: 1 },
     binding: { geo: 'lat|lon', positon: 'x' },
     meta: { title: 'T' },
@@ -56,13 +56,13 @@ test('createValidator validates plain values and passes ctx through', () => {
   v.options({ panhidden: true, zoomcontrol: 1 }, { layer: null });
   v.runtimeCall('setMapTool', { layer: null });
   const by = k => found.find(f => f.keyword === k);
-  assert.equal(by('PIE').code, 'gl-unsupported');
+  assert.equal(by('DONUT').code, 'gl-unsupported');
   assert.equal(by('CATEGORICL').suggestion, 'CATEGORICAL');
   assert.equal(by('fillOpacity').suggestion, 'fillopacity');
   assert.equal(by('positon').code, 'unknown-binding-key');
   assert.equal(by('zoomcontrol').code, 'unknown-options-key');
   assert.equal(by('setMapTool').code, 'gl-unsupported');
-  assert.equal(by('PIE').layer, 'plants');
+  assert.equal(by('DONUT').layer, 'plants');
   // panhidden is a valid flat option (ci-substring panHidden) that gl lacks
   assert.equal(by('panhidden').code, 'gl-unsupported');
   assert.ok(!by('scale') && !by('title') && !by('csv'));
