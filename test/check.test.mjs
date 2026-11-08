@@ -129,3 +129,11 @@ test('the gl density types HEATMAP, MLHEATMAP and KDE and their style keys: vali
   assert.deepEqual(flat.findings.filter(f => f.severity === 'error'), [], 'flat: not errors (typos), only gl-only warnings');
   assert.deepEqual([...new Set(flat.findings.filter(f => f.code === 'gl-only').map(f => f.keyword))].sort(), words.slice().sort());
 });
+
+test('the gl Map option themetools: valid for gl, gl-only for flat', () => {
+  const gl = checkFile(fx('gl_themetools.html'), { engine: 'gl' });
+  assert.deepEqual(gl.findings.filter(f => f.keyword === 'themetools'), [], `engine gl: ${codes(gl).join(', ')}`);
+  const flat = checkFile(fx('gl_themetools.html'));
+  assert.deepEqual(errors(flat), [], 'flat: not an error (unknown option), only a gl-only warning');
+  assert.deepEqual(flat.findings.filter(f => f.code === 'gl-only').map(f => f.keyword), ['themetools', 'themetools']);
+});

@@ -17376,6 +17376,9 @@
       "MLHEATMAP": "ixmaps-gl: MapLibre's native heatmap layer (GPU kernel, absolute density, radius and intensity follow the zoom); also on the globe",
       "KDE": "ixmaps-gl: kernel density estimate of the visible records as stacked polygon bands (worker + d3-contour); not drawn on the globe"
     },
+    "mapOptions": {
+      "themetools": "ixmaps-gl: the right-click tool bar (tune / edit / config), on by default as flat's context menu; its code, ixmaps-gl-tools.js, loads on the first right-click — false turns it off, a string is the add-on's URL (not flat's tools option, the pan/info toggle button)"
+    },
     "optionsKeys": {
       "splash": "ixmaps-gl: false disables the loading splash",
       "splashText": "ixmaps-gl: loading splash text",
