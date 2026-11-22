@@ -19,13 +19,24 @@
       "threshold": "ixmaps-gl HEATMAP: density below this fraction of the maximum is transparent (default 0.05)",
       "weightmax": "ixmaps-gl MLHEATMAP: the weight that counts 1 (default: the largest weight)",
       "bandwidth": "ixmaps-gl KDE: Gaussian bandwidth in km (default: by zoom)",
-      "kdelevels": "ixmaps-gl KDE: band thresholds as fractions of the maximum, an array or \"0.2,0.5\" (default 0.15, 0.30, 0.50, 0.70)"
+      "kdelevels": "ixmaps-gl KDE: band thresholds as fractions of the maximum, an array or \"0.2,0.5\" (default 0.15, 0.30, 0.50, 0.70)",
+      "bandwidthscale": "ixmaps-gl KDE: multiplies the bandwidth (style.bandwidth or the zoom-following default), default 1",
+      "bandwidthzoompow": "ixmaps-gl KDE: power that flattens the bandwidth's zoom dependence (default 1)",
+      "bandwidthzoomref": "ixmaps-gl KDE: the flat zoom the zoom-following bandwidth is referred to (default 12)",
+      "infobubble": "ixmaps-gl INFOBUBBLE: the card template (as meta.infobubble; style and meta are merged)",
+      "bubblemax": "ixmaps-gl INFOBUBBLE: the most cards drawn (default 50, \"all\" for no limit)",
+      "bubblewidth": "ixmaps-gl INFOBUBBLE: the card's max-width in px",
+      "bubbleoffset": "ixmaps-gl INFOBUBBLE: the card's offset \"dx,dy\" in px",
+      "bubbleclose": "ixmaps-gl INFOBUBBLE: 1 adds a close button to each card",
+      "bubblecss": "ixmaps-gl INFOBUBBLE: CSS appended to the cards' stylesheet"
     },
     "flags": {
       "SPLINE": "ixmaps-gl PLOT curve smoothing",
       "HEATMAP": "ixmaps-gl: kernel-density heatmap (deck.gl HeatmapLayer), weighted by binding.size; radius style.radiuspx; not drawn on the globe",
       "MLHEATMAP": "ixmaps-gl: MapLibre's native heatmap layer (GPU kernel, absolute density, radius and intensity follow the zoom); also on the globe",
-      "KDE": "ixmaps-gl: kernel density estimate of the visible records as stacked polygon bands (worker + d3-contour); not drawn on the globe"
+      "KDE": "ixmaps-gl: kernel density estimate of the visible records as stacked polygon bands (worker + d3-contour); not drawn on the globe",
+      "INFOBUBBLE": "ixmaps-gl: a permanent info card per item (DOM overlay, the meta.infobubble / tooltip template); at most style.bubblemax cards (default 50, \"all\" for none); on a chart type that cannot carry cards it warns once",
+      "NOICON": "ixmaps-gl: with INFOBUBBLE, cards only: no marker is drawn under them"
     },
     "mapOptions": {
       "themetools": "ixmaps-gl: the right-click tool bar (tune / edit / config), on by default as flat's context menu; its code, ixmaps-gl-tools.js, loads on the first right-click — false turns it off, a string is the add-on's URL (not flat's tools option, the pan/info toggle button)"
@@ -56,10 +67,20 @@
       "setThemeStyle": "ixmaps-gl",
       "setThemeVisible": "ixmaps-gl",
       "getValidationReport": "ixmaps-gl: findings of the opt-in grammar validation (null when off)",
-      "setLegend": "ixmaps-gl runtime switch for the legend map option (same values as ixmaps.Map(id, {legend}): on, \"closed\", off)"
+      "setLegend": "ixmaps-gl runtime switch for the legend map option (same values as ixmaps.Map(id, {legend}): on, \"closed\", off)",
+      "cameraPath": "ixmaps-gl: ixmaps.map().cameraPath(keyframes, options) flies the camera through keyframes on a smooth curve",
+      "cameraOrbit": "ixmaps-gl: ixmaps.map().cameraOrbit(options), the orbit preset of cameraPath",
+      "getCamera": "ixmaps-gl: the current camera (center, zoom, pitch, bearing) as a cameraPath keyframe",
+      "getMapOptions": "ixmaps-gl: a copy of the map's options and engine options"
     },
     "runtimeApi": {
       "data.fShowFacetValues": "ixmaps-gl facet display switch"
+    },
+    "metaKeys": {
+      "infobubble": "ixmaps-gl INFOBUBBLE: the card's Mustache template (else meta.tooltip, else flat's default)"
+    },
+    "mapBuilderMethods": {
+      "off": "ixmaps-gl: flat's mapApi.off(events, cb) before the map is built"
     }
   },
   "glInternal": {
@@ -76,6 +97,9 @@
       "map",
       "overlay",
       "runtimes"
+    ],
+    "flags": [
+      "MLPMTILES"
     ]
   },
   "dataKeys": {
@@ -157,6 +181,21 @@
     "DOPACITYPOWMAX": {
       "gl": {
         "note": "ixmaps-gl applies it only to the dominant class of a CHOROPLETH|CATEGORICAL|AGGREGATE theme"
+      }
+    },
+    "VOLUME": {
+      "gl": {
+        "note": "ixmaps-gl reads it where flat does for bar VALUES text placement, but draws 3D volume bars as plain bars (BAR_INERT_FLAGS: noted in the console); on pies it is noted, drawn flat"
+      }
+    },
+    "COLUMN": {
+      "gl": {
+        "note": "ixmaps-gl reads it for flat's bar width rule, but draws COLUMN bars as plain bars (BAR_INERT_FLAGS: noted in the console)"
+      }
+    },
+    "CLIP": {
+      "gl": {
+        "note": "ixmaps-gl reads it for flat's SEQUENCE|CLIP colour classes; on CHART|WAFFLE it is noted, not drawn (WAFFLE_INERT_FLAGS)"
       }
     }
   },

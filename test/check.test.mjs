@@ -53,7 +53,7 @@ test('engine=flat flags gl-only extensions; engine=gl flags what gl lacks', () =
   assert.deepEqual(flat.findings.filter(f => f.code === 'gl-only').map(f => f.keyword).sort(), ['SPLINE', 'legendtheme']);
   assert.equal(errors(flat).length, 0);
   const gl = checkFile(fx('gl_only.html'), { engine: 'gl' });
-  assert.ok(gl.findings.some(f => f.code === 'gl-unsupported' && f.keyword === 'DONUT'));
+  assert.ok(gl.findings.some(f => f.code === 'gl-unsupported' && f.keyword === 'QUAD'));
   assert.ok(!gl.findings.some(f => f.code === 'gl-only'));
   assert.ok(!gl.findings.some(f => ['CHART', 'PLOT', 'GRIDSIZE', 'VALUES', 'scale'].includes(f.keyword) && f.code === 'gl-unsupported'));
 });

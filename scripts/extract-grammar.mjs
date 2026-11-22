@@ -394,6 +394,18 @@ function extractGl(reg) {
     // as gl-missing only because of how they are spelled
     for (const m of rawLine.matchAll(/\bflatFlag\(\s*(?:[A-Za-z_$][\w$.]*\.)?flags\s*,\s*'([A-Z0-9_]+)'\s*\)/g)) addRef(gl.flags, m[1], where);
     for (const m of rawLine.matchAll(/\bword\(\s*'([A-Z0-9_]+)'\s*\)/g)) addRef(gl.flags, m[1], where);
+    // flat's substring tests spelled as regex literals on the type string —
+    // `/WAFFLE/.test(t)`, `!/\bUSER\b|PIE/.test(t)`, the chart layouts'
+    // `has(/WAFFLE100/)` (has = re => re.test(t)) — each alternative a flag
+    // (gl reads it, also when the test excludes, as flat does). Only tests of
+    // the type string (t, typeWords) and has(): `/CEIL/.test(szFlag)` is a
+    // number-format option, `/HEIGHT/.test(flag)` walks an inert list, and a
+    // bare regex in an array (BAR_INERT_FLAGS = [/3D/, …]) is not a read.
+    const flagAlt = String.raw`(?:\\b|\^)?[A-Z][A-Z0-9_]*(?:\\b|\$)?`;
+    const flagRegex = String.raw`\/(${flagAlt}(?:\|${flagAlt})*)\/`;
+    for (const re of [new RegExp(flagRegex + String.raw`\.test\(\s*(?:t|typeWords)\s*\)`, 'g'), new RegExp(String.raw`\bhas\(\s*` + flagRegex + String.raw`\s*\)`, 'g')]) {
+      for (const m of rawLine.matchAll(re)) m[1].split('|').forEach(alt => addRef(gl.flags, alt.replace(/\\b|\^|\$/g, ''), where));
+    }
     // style keys: only reads off the theme's style object (this.style /
     // rt.style / r.style / a bare `style` param) — never a DOM element's
     // .style (el.style, tooltipEl.style, ...)
