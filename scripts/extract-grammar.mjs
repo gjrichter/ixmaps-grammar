@@ -410,7 +410,7 @@ function extractGl(reg) {
     // rt.style / r.style / a bare `style` param) — never a DOM element's
     // .style (el.style, tooltipEl.style, ...)
     // ctx: gl's pure resolveX(ctx, ...) functions read the theme via ctx
-    for (const m of line.matchAll(/(?:\b(?:this|rt|r|ctx)\.|(?<![\w.$]))style\.([a-z][a-zA-Z0-9]*)/g)) addRef(gl.styleKeys, m[1], where);
+    for (const m of line.matchAll(/(?:\b(?:this|rt|r|ctx|spec)\.|(?<![\w.$]))style\.([a-z][a-zA-Z0-9]*)/g)) addRef(gl.styleKeys, m[1], where);
     for (const m of line.matchAll(/\bbinding\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.bindingKeys, m[1], where);
     for (const m of line.matchAll(/\bmeta\.([a-zA-Z][a-zA-Z0-9]*)/g)) addRef(gl.metaKeys, m[1], where);
     // `builder.mapOptions` is the MapBuilder's own options wherever it is

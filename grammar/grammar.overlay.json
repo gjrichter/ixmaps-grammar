@@ -118,6 +118,12 @@
     }
   },
   "flags": {
+    "RANGES": {
+      "gl": {
+        "status": "implicit",
+        "note": "flat's RANGES flag only keeps style.ranges across refreshTheme (maptheme.js 2316) and on a runtime restyle (4617); ixmaps-gl takes style.ranges whatever the type flags (ixmaps-gl.js 13693) and never tests the flag"
+      }
+    },
     "FAST": {
       "gl": {
         "status": "implicit",
