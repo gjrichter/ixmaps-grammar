@@ -432,6 +432,22 @@ function extractGl(reg) {
       && (n.object.type === 'ThisExpression' || (n.object.type === 'Identifier' && /^(rt|r|ctx)$/.test(n.object.name))))
     || (n.type === 'Identifier' && n.name === 'style'));
   const isStyleAliasInit = init => isStyleRef(init) || (!!init && init.type === 'LogicalExpression' && init.operator === '||' && isStyleRef(init.left));
+  // a method that RETURNS its style alias in an object (`const st = this.style; return { st, … }`,
+  // gl's _partsChartSetup): method name → the returned property names that are the style object
+  const styleReturns = new Map();
+  walk(ast, n => {
+    if (n.type !== 'MethodDefinition' || n.key.type !== 'Identifier' || !n.value.body) return;
+    const local = new Set();
+    walk(n.value.body, d => { if (d.type === 'VariableDeclarator' && d.id.type === 'Identifier' && isStyleAliasInit(d.init)) local.add(d.id.name); });
+    const keys = new Set();
+    walk(n.value.body, r => {
+      if (r.type !== 'ReturnStatement' || !r.argument || r.argument.type !== 'ObjectExpression') return;
+      for (const p of r.argument.properties)
+        if (p.type === 'Property' && !p.computed && p.key.type === 'Identifier'
+          && (isStyleRef(p.value) || (p.value.type === 'Identifier' && local.has(p.value.name)))) keys.add(p.key.name);
+    });
+    if (keys.size) styleReturns.set(n.key.name, keys);
+  });
   const countedAliasReads = new Set();
   walk(ast, fn => {
     if (!/Function/.test(fn.type) || !fn.body) return;
@@ -440,6 +456,14 @@ function extractGl(reg) {
       if (!n || typeof n.type !== 'string') return;
       if (n !== fn && /Function/.test(n.type)) return;
       if (n.type === 'VariableDeclarator' && n.id.type === 'Identifier' && n.id.name !== 'style' && isStyleAliasInit(n.init)) aliases.add(n.id.name);
+      // `const { st, … } = this._partsChartSetup(…)`: the destructured style alias
+      if (n.type === 'VariableDeclarator' && n.id.type === 'ObjectPattern' && n.init && n.init.type === 'CallExpression'
+        && n.init.callee.type === 'MemberExpression' && n.init.callee.object.type === 'ThisExpression'
+        && !n.init.callee.computed && styleReturns.has(n.init.callee.property.name)) {
+        const keys = styleReturns.get(n.init.callee.property.name);
+        for (const p of n.id.properties)
+          if (p.type === 'Property' && !p.computed && p.key.type === 'Identifier' && keys.has(p.key.name) && p.value.type === 'Identifier') aliases.add(p.value.name);
+      }
       for (const k of Object.keys(n)) {
         const v = n[k];
         if (k === 'loc') continue;

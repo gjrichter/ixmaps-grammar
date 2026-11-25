@@ -63,3 +63,9 @@ test('style keys gl reads through a local alias of the style object (const st = 
   for (const k of ['boxmargin', 'boxcolor', 'borderwidth', 'borderstyle', 'borderradius', 'titleupper', 'gapsize', 'fadenegative'])
     assert.equal(g.styleKeys[k].gl.status, 'impl', k);
 });
+
+test('style keys gl reads through an alias destructured from a helper (const { st } = this._partsChartSetup()) count as implemented', () => {
+  // the pie and bar builders get st from _partsChartSetup's returned object (gl v0.2.57); these keys are read there only
+  for (const k of ['centerpart', 'fadevaluepow'])
+    assert.equal(g.styleKeys[k].gl.status, 'impl', k);
+});
